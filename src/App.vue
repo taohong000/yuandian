@@ -1,32 +1,38 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <nav-bar :title="navBarTitle" left-arrow />
+    <router-view />
+    <tabbar v-model="tabbarIndex" placeholder>
+      <tabbar-item icon="home-o" replace to="/">首页</tabbar-item>
+      <tabbar-item icon="bullhorn-o"  replace to="/message">消息</tabbar-item>
+      <tabbar-item icon="user-circle-o"  replace to="/my">我的</tabbar-item>
+    </tabbar>
   </div>
 </template>
-
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+// @ is an alias to /src
+import { Tabbar, TabbarItem, NavBar } from "vant";
+export default {
+  name: "Home",
+  components: {
+    NavBar,
+    Tabbar,
+    TabbarItem
+  },
+  data() {
+    return {
+      tabbarIndex: 0,
+    }
+  },
+  computed: {
+    navBarTitle() {
+      return this.$route.meta.title
     }
   }
+};
+</script>
+<style lang="less">
+#app {
+  width: 100%;
 }
 </style>

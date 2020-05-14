@@ -16,6 +16,17 @@
       <van-grid-item icon="photo-o" text="文字" />
       <van-grid-item icon="photo-o" text="文字" />
     </van-grid>
+    <div class="body">
+      <van-row type="flex" justify="space-between">
+      <van-col span="11">span: 6</van-col>
+      <van-col span="11">span: 6</van-col>
+    </van-row>
+        <div class="subject" v-for="item in subjectList" :key="item.id">
+      <div class="title">{{item.title}}</div>
+      <img :src="item.thumbnailUrl" alt="item.title">
+    </div>
+    </div>
+    
   </div>
 </template>
 
@@ -29,6 +40,15 @@ export default {
     VanSwipeItem: SwipeItem,
     VanGrid: Grid,
     VanGridItem: GridItem
+  },
+  data() {
+    return {
+      subjectList: []
+    }
+  },
+  async mounted() {
+    let aaa = await this.$request.get('photos')
+    this.subjectList = aaa.slice(0, 5)
   }
 };
 </script>
